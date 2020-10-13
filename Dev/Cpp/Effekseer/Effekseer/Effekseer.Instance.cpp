@@ -329,7 +329,7 @@ void Instance::FirstUpdate()
 	m_GlobalPosition = parentMatrix.GetTranslation();
 	m_GlobalRevisionLocation = Vec3f(0.0f, 0.0f, 0.0f);
 	m_GlobalRevisionVelocity = Vec3f(0.0f, 0.0f, 0.0f);
-	localForceField_.Reset();
+	forceField_.Reset();
 	m_GenerationLocation = Mat43f::Identity;
 
 	// 親の初期化
@@ -1501,9 +1501,9 @@ void Instance::CalculateMatrix(float deltaFrame)
 			currentLocalPosition = localPosition;
 		}
 
-		currentLocalPosition += localForceField_.ModifyLocation;
-		localForceField_.ExternalVelocity = localVelocity;
-		localForceField_.Update(m_pEffectNode->LocalForceField, currentLocalPosition, m_pEffectNode->GetEffect()->GetMaginification());
+		currentLocalPosition += forceField_.ModifyLocation;
+		forceField_.ExternalVelocity = localVelocity;
+		forceField_.Update(m_pEffectNode->LocalForceField, currentLocalPosition, m_pEffectNode->GetEffect()->GetMaginification());
 
 		/* 描画部分の更新 */
 		m_pEffectNode->UpdateRenderedInstance(*this, m_pManager);
@@ -1536,11 +1536,11 @@ void Instance::CalculateMatrix(float deltaFrame)
 			m_GlobalMatrix43 *= m_GenerationLocation;
 			assert(m_GlobalMatrix43.IsValid());
 
-			m_GlobalMatrix43 *= Mat43f::Translation(localForceField_.ModifyLocation);
+			m_GlobalMatrix43 *= Mat43f::Translation(forceField_.ModifyLocation);
 		}
 		else
 		{
-			localPosition += localForceField_.ModifyLocation;
+			localPosition += forceField_.ModifyLocation;
 
 			m_GlobalMatrix43 = Mat43f::SRT(localScaling, MatRot, localPosition);
 			assert(m_GlobalMatrix43.IsValid());

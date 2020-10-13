@@ -325,6 +325,10 @@ void LocalForceFieldInstance::Update(const LocalForceFieldParameter& parameter, 
 	ModifyLocation += VelocitySum;
 }
 
+void LocalForceFieldInstance::UpdateGlobal(const LocalForceFieldParameter& parameter, const Vec3f& location, float magnification)
+{
+}
+
 void LocalForceFieldInstance::Reset()
 {
 	Velocities.fill(Vec3f(0, 0, 0));

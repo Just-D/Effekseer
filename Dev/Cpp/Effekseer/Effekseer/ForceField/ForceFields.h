@@ -274,7 +274,7 @@ public:
 
 		forceDir /= (sqrtf(forceDirScaleSq));
 
-		return forceDir * ffp.Power;
+		return forceDir * vecLenSq * ffp.Power;
 	}
 
 	/**
@@ -373,7 +373,12 @@ struct LocalForceFieldInstance
 	Vec3f VelocitySum;
 	Vec3f ModifyLocation;
 
+	Vec3f GlobalVelocitySum;
+	Vec3f ModifyLocation;
+
 	void Update(const LocalForceFieldParameter& parameter, const Vec3f& location, float magnification);
+
+	void UpdateGlobal(const LocalForceFieldParameter& parameter, const Vec3f& location, float magnification);
 
 	void Reset();
 };

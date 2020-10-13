@@ -111,12 +111,8 @@ public:
 	Vec3f m_GlobalRevisionLocation;
 	Vec3f m_GlobalRevisionVelocity;
 
-#ifdef OLD_LF
-	//! for noise
-	Vec3f modifyWithNoise_;
-#else
-	LocalForceFieldInstance localForceField_;
-#endif
+	LocalForceFieldInstance forceField_;
+
 	// Color for binding
 	Color ColorInheritance;
 
